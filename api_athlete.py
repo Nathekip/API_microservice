@@ -99,4 +99,4 @@ def athlete_findBySurname():
     return jsonify({"athlete":athlete}), 200
 
 if __name__ == '__main__':
-    api_jo.run(port=5002)
+    api_jo.run(port=5000)
