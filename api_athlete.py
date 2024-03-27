@@ -9,18 +9,9 @@ def get_json(database:str) -> dict[str, str]:
             dico = json.load(file)
     except FileNotFoundError:
         print(f"{database}.json not found")
-        return {
-                "message": f"{database}.json not found",
-                "details": {},
-                "description": "The database set does not exist.",
-                "code": 1002,
-                "http_response": {
-                    "message": "We could not find the resource you requested.",
-                    "code": 404
-                }
-            }
+        return {"erreur": f"{database}.json not found"}
     except json.JSONDecodeError:
-        return {'erreur':f"{database}.json vide"} 
+        return {'erreur':f"{database}.json empty"} 
     return dico
 
 @api_jo.route("/", methods=['GET'])
