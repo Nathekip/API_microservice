@@ -1,13 +1,13 @@
 services:
   docker_api_medal:
-    build: ~/API_microservice/dockerfile/medal
+    build: API_microservice/dockerfiles/medal
     ports:
       - "8080:5000"
   docker_api_athlete:
-    build: ~/API_microservice/dockerfile/athlete
+    build: API_microservice/dockerfiles/athlete
     ports:
-      - "8080:5000"
+      - "8081:5000"
   docker_api_sport:
-    build: ~/API_microservice/dockerfile/sport
+    build: API_microservice/dockerfiles/sport
     ports:
-      - "8080:5000"
+      - "8082:5000"
