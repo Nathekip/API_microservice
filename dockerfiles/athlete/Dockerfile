@@ -5,4 +5,4 @@ RUN pip install flask
 RUN git clone https://github.com/Nathekip/API_microservice.git
 WORKDIR /root/API_microservice/
 EXPOSE 5000
-CMD python API_microservice/api_athlete.py
+CMD python /root/API_microservice/api_athlete.py
