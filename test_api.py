@@ -151,7 +151,7 @@ def test_sport():
     # Test DELETE /sport
     print("=======DELETE=======")
     for id in [1, 2, 3]:
-        print(test_delete(f'/sport/{id}))
+        print(test_delete(f'/sport/{id}'))
 
 test_athlete()
 test_sport()
