@@ -111,4 +111,4 @@ def medal_findByAthlete():
     return jsonify({"medal":medal}), 200
 
 if __name__ == '__main__':
-    api_jo.run()
+    api_jo.run(port=5000, host="0.0.0.0")
