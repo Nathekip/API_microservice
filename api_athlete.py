@@ -20,17 +20,7 @@ def get_json(database:str) -> dict[str, str]:
                 }
             }
     except json.JSONDecodeError:
-        print(f"{database}.json vide")
-        return {
-                "message": f"{database}.json empty",
-                "details": {},
-                "description": "The database is empty.",
-                "code": 1002,
-                "http_response": {
-                    "message": "The resource you requested was empty.",
-                    "code": 404
-                }
-            }    
+        return {'erreur':f"{database}.json vide"} 
     return dico
 
 @api_jo.route("/", methods=['GET'])
