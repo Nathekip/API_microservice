@@ -1,0 +1,255 @@
+openapi: 3.0.3
+info:
+  title: Swagger Olympics API Medals
+  description: API for Olympics medals
+  version: 1.0.0
+servers:
+  - url: localhost:5000
+tags:
+  - name: medal
+    description: Everything about medals
+paths:
+  /medal:
+    put:
+      tags:
+        - medal
+      summary: Update an existing medal
+      description: Update an existing medal by Id
+      operationId: updateMedal
+      requestBody:
+        description: Update an existent medal in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Medal'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Medal'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Medal'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Medal'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Medal'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Medal not found
+        '422':
+          description: Validation exception
+    post:
+      tags:
+        - medal
+      summary: Add a new medal
+      description: Add a new medal
+      operationId: addMedal
+      requestBody:
+        description: Create a new medal
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Medal'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Medal'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Medal'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Medal'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Medal'
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+  /medal/findBySport:
+    get:
+      tags:
+        - medal
+      summary: Finds Medals by sport ID
+      description: Multiple sport values can be provided with comma separated strings
+      operationId: findMedalsBySport
+      parameters:
+        - name: sport
+          in: query
+          description: Sport values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+            default: 0000
+            enum:
+              - 0000
+              - 7432
+              - 6463
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Medal'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Medal'
+        '400':
+          description: Invalid status value
+  /medal/findByYear:
+    get:
+      tags:
+        - medal
+      summary: Finds Medals by year
+      description: Multiple year values can be provided with comma separated strings
+      operationId: findMedalsByYear
+      parameters:
+        - name: year
+          in: query
+          description: Year values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+            default: 0000
+            enum:
+              - 0000
+              - 1996
+              - 2012
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Medal'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Medal'
+        '400':
+          description: Invalid status value
+  /medal/findByAthlete:
+    get:
+      tags:
+        - medal
+      summary: Finds Medals by athlete ID
+      description: Multiple IDs can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
+      operationId: findMedalsByAthlete
+      parameters:
+        - name: athlete
+          in: query
+          description: Athletes to filter by
+          required: false
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Medal'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Medal'
+        '400':
+          description: Invalid tag value
+  /medal/{medalId}:
+    get:
+      tags:
+        - medal
+      summary: Find medal by ID
+      description: Returns a single medal
+      operationId: getMedalById
+      parameters:
+        - name: medalId
+          in: path
+          description: ID of medal to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Medal'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Medal'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Medal not found
+    delete:
+      tags:
+        - medal
+      summary: Deletes a medal
+      description: delete a medal
+      operationId: deleteMedal
+      parameters:
+        - name: medalId
+          in: path
+          description: Medal id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid medal value
+components:
+  schemas:
+    Medal:
+      type: object
+      properties:
+        medal_id:
+          type: integer
+          format: int64
+          example: 8954
+        year:
+          type: integer
+          format: int64
+          example: 2004
+        color:
+          type: string
+          example: argent
+        athlete_id:
+          type: integer
+          format: int64
+          example: 4610
+        sport_id:
+          type: integer
+          format: int64
+          example: 312

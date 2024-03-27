@@ -1,0 +1,193 @@
+openapi: 3.0.3
+info:
+  title: Swagger Olympics API Athletes
+  description: API for Olympics athletes
+  version: 1.0.0
+servers:
+  - url: localhost:5002
+components:
+  schemas:
+    Athlete:
+      type: object
+      properties:
+        athlete_id:
+          type: integer
+          format: int64
+        sport_id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        surname:
+          type: string
+        age: 
+          type: integer
+          format: int64
+        gender: 
+          type: string
+        size:
+          type: integer
+          format: int64
+        weight:
+          type: integer
+          format: int64
+        
+
+paths:
+  /Athlete:
+    get:
+      tags:
+        - Athlete
+      summary: renvoie la liste des athlètes
+      responses:
+        '200':
+          description: Liste des athlètes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Athlete'
+        '404':
+          description: Liste vide
+    
+    post:
+      tags:
+        - Athlete
+      summary: Créer un athlète
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Athlete'
+      responses:
+        '201':
+          description: Athlète créé avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Athlete'
+                
+    put:
+      tags:
+        - Athlete
+      summary: Mettre à jour les informations d'un athlète
+      requestBody:
+        required: true
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Athlete'
+      responses:
+        '200':
+          description: Informations de l'athlete mises à jour avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Athlete'
+        '404':
+          description: Utilisateur non trouvé
+    
+  /Athlete/{AthleteID}:
+    get:
+      tags:
+        - Athlete
+      summary: Récupérer les informations d'un athlète
+      parameters:
+        - name: AthleteID
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      responses:
+        '200':
+          description: Informations de l'utilisateur récupérées avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Athlete'
+        '404':
+          description: Utilisateur non trouvé
+
+    delete:
+      tags:
+        - Athlete
+      summary: Supprimer un athlete
+      parameters:
+        - name: AthleteID
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      responses:
+        '204':
+          description: Utilisateur supprimé avec succès
+        '404':
+          description: Utilisateur non trouvé
+          
+  /Athlete/findByName:
+    get:
+      tags:
+        - Athlete
+      summary: Finds athlete by name
+      operationId: findAthleteByName
+      parameters:
+        - name: name
+          in: query
+          description: name to filter by
+          required: false
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Athlete'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Athlete'
+        '400':
+          description: Invalid name value
+  
+  /Athlete/findBysurname:
+    get:
+      tags:
+        - Athlete
+      summary: Finds athlete by surname
+      operationId: findAthleteBySurname
+      parameters:
+        - name: surname
+          in: query
+          description: surname to filter by
+          required: false
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Athlete'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Athlete'
+        '400':
+          description: Invalid surname value
